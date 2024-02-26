@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import ftplib
 import sqlite3
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -45,18 +45,19 @@ def scrape_and_store():
 scrape_and_store()
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(scrape_and_store, 'interval', minutes=10)
+scheduler.add_job(scrape_and_store, 'interval', minutes=1)
 scheduler.start()
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/data')
+@app.route('/data', methods=['GET'])
 def data():
+    limit = request.args.get('limit', default = 144, type = int)
     conn = sqlite3.connect('temps.db')
     c = conn.cursor()
-    c.execute("SELECT * FROM temps")
+    c.execute('SELECT * FROM temps ORDER BY id DESC LIMIT ?', (limit,))
     data = c.fetchall()
     conn.close()
     return jsonify(data)
