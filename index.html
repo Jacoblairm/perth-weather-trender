@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+</head>
+
+<body>
+    <canvas id="weatherChart"></canvas>
+    <select id="timeRange" onchange="updateTimeRange()">
+        <option value="1">Last Hour</option>
+        <option value="24">Last 24 Hours</option>
+        <option value="168">Last Week</option>
+    </select>
+    <script>
+        var chart;  // Make the chart a global variable so it can be accessed in updateTimeRange
+
+        // Fetch data from your API or server
+        fetch('/data')
+            .then(response => response.json())
+            .then(data => {
+                const timestamps = data.map(item => item[1]);
+                const air_temperatures = data.map(item => item[2]);
+                const apparent_temps = data.map(item => item[3]);
+                const rel_humidities = data.map(item => item[4]);
+                const wind_spd_kmhs = data.map(item => item[5]);
+                const gust_kmhs = data.map(item => item[6]);
+
+                const ctx = document.getElementById('weatherChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: timestamps,
+                        datasets: [{
+                            label: 'Air Temperature',
+                            data: air_temperatures,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            fill: false
+                        }, {
+                            label: 'Apparent Temperature',
+                            data: apparent_temps,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false
+                        }, {
+                            label: 'Relative Humidity',
+                            data: rel_humidities,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            fill: false
+                        }, {
+                            label: 'Wind Speed',
+                            data: wind_spd_kmhs,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            fill: false
+                        }, {
+                            label: 'Gust Speed',
+                            data: gust_kmhs,
+                            borderColor: 'rgba(255, 205, 86, 1)',
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: 'Weather Data'
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Time'
+                                },
+                                time: {
+                                    unit: 'minute',
+                                    min: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),  // 24 hours ago
+                                    max: new Date(),  // Current time
+                                },
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value'
+                                }
+                            }
+                        }
+                    }
+                });
+            });
+
+        // Update the time range
+        function updateTimeRange() {
+            const timeRange = document.getElementById('timeRange').value;
+            const now = new Date();
+            const past = new Date(now.getTime() - timeRange * 60 * 60 * 1000);
+
+            chart.options.scales.x.time.min = past;
+            chart.options.scales.x.time.max = now;
+            chart.options.scales.x.time.unit = 'hour';
+
+            chart.update();  // Update the chart to reflect the new time range
+        }
+    </script>
+</body>
+
+</html>
