@@ -48,7 +48,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(scrape_and_store, 'interval', minutes=1)
 scheduler.start()
 
-@app.route('/chartjs')
+@app.route('/apexcharts')
 def home():
     return render_template('index.html')
 
