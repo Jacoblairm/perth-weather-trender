@@ -52,8 +52,8 @@ scheduler.start()
 def home():
     return render_template('index.html')
 
-@app.route('/chartjs')
-def home():
+@app.route('/chart')
+def chart():
     return render_template('chartjs.html')
 
 @app.route('/data', methods=['GET'])
