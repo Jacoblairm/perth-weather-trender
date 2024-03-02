@@ -49,28 +49,6 @@
                         series: [{
                             name: 'Air Temperature',
                             data: air_temperatures,
-                            color: {
-                                type: 'gradient',
-                                gradient: {
-                                    shade: 'light',
-                                    type: 'vertical',
-                                    shadeIntensity: 0.5,
-                                    inverseColors: true,
-                                    opacityFrom: 1,
-                                    opacityTo: 1,
-                                    stops: [0, 100],
-                                    colorStops: [
-                                        {
-                                            offset: 0,
-                                            color: '#0000FF' // Blue color for lower temperature
-                                        },
-                                        {
-                                            offset: 100,
-                                            color: '#FF0000' // Red color for higher temperature
-                                        }
-                                    ]
-                                }
-                            }
                         }, {
                             name: 'Apparent Temperature',
                             data: apparent_temps
@@ -84,6 +62,15 @@
                             name: 'Gust Speed',
                             data: gust_kmhs
                         }],
+                        fill: {
+                            type: "gradient",
+                            gradient: {
+                                shadeIntensity: 1,
+                                opacityFrom: 0.7,
+                                opacityTo: 0.9,
+                                stops: [0, 90, 100]
+                            }
+                        },
                         xaxis: {
                             type: 'datetime',
                             categories: timestamps,
