@@ -23,7 +23,7 @@ jobs:
         REMOTE_DIR: /var/www/html/bom/
         METHOD: ${{ secrets.FTP_METHOD }}
         PORT: ${{ secrets.FTP_PORT }}
-        ARGS: --verbose --exclude-glob=.git*
+        ARGS: --verbose --parallel=10
 
     - name: Restart service
       uses: appleboy/ssh-action@master
