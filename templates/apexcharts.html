@@ -39,8 +39,7 @@
                 console.log(air_temperatures)
                 const options = {
                     chart: {
-                        type: 'line',
-                        height: 350
+                        type: 'line'
                     },
                     series: [{
                         name: 'Air Temperature',
@@ -62,7 +61,7 @@
                         type: 'datetime',
                         categories: timestamps,
                         labels: {
-                            format: 'dd MMM yyyy'
+                            format: 'dd/MM HH:mm'
                         }
                     },
                     yaxis: {
@@ -78,53 +77,6 @@
                 chart = new ApexCharts(document.querySelector("#weatherChart"), options);
                 chart.render();
             });
-        const timestamps = data.map(item => item[1]);
-        const air_temperatures = data.map(item => [item[1], item[2]]);
-        const apparent_temps = data.map(item => [item[1], item[3]]);
-        const rel_humidities = data.map(item => [item[1], item[4]]);
-        const wind_spd_kmhs = data.map(item => [item[1], item[5]]);
-        const gust_kmhs = data.map(item => [item[1], item[6]]);
-        console.log(air_temperatures)
-        const options = {
-            chart: {
-                type: 'line',
-                height: 350
-            },
-            series: [{
-                name: 'Air Temperature',
-                data: air_temperatures
-            }, {
-                name: 'Apparent Temperature',
-                data: apparent_temps
-            }, {
-                name: 'Relative Humidity',
-                data: rel_humidities
-            }, {
-                name: 'Wind Speed',
-                data: wind_spd_kmhs
-            }, {
-                name: 'Gust Speed',
-                data: gust_kmhs
-            }],
-            xaxis: {
-                type: 'datetime',
-                labels: {
-                    format: 'dd MMM yyyy'
-                }
-            },
-            yaxis: {
-                title: {
-                    text: 'Value'
-                }
-            },
-            title: {
-                text: 'Weather Data'
-            }
-        };
-
-        chart = new ApexCharts(document.querySelector("#weatherChart"), options);
-        chart.render();
-
         function updateTimeRange() {
             var timeRange = document.getElementById("timeRange").value;
             // Update the chart based on the selected time range
