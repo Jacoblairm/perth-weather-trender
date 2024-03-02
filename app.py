@@ -48,11 +48,11 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(scrape_and_store, 'interval', minutes=1)
 scheduler.start()
 
-@app.route('/')
+@app.route('/chartjs')
 def home():
     return render_template('index.html')
 
-@app.route('/chart')
+@app.route('/')
 def chart():
     return render_template('chartjs.html')
 
