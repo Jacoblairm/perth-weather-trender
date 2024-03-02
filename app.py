@@ -52,6 +52,10 @@ scheduler.start()
 def home():
     return render_template('index.html')
 
+@app.route('/chartjs')
+def home():
+    return render_template('chartjs.html')
+
 @app.route('/data', methods=['GET'])
 def data():
     limit = request.args.get('limit', default = 144, type = int)
