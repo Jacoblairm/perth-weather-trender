@@ -18,6 +18,8 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ${{ secrets.FTP_SERVER }}
+        port: ${{ secrets.FTP_PORT }}
+        protocol: ${{ secrets.FTP_PROTOCOL }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         server-dir: /var/www/html/bom/
@@ -26,8 +28,6 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
-        protocol: ${{ secrets.SSH_PROTOCOL }}
-        port: ${{ secrets.SSH_PORT }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PASSWORD }}
         script: ${{ vars.RESTART_SCRIPT }}
