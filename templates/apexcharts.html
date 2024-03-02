@@ -107,7 +107,7 @@
                         dataLabels: {
                             enabled: true,
                             formatter: function (value, { seriesIndex, dataPointIndex, w }) {
-                                if (dataPointIndex % 12 === 0) { // Show label every 12 data points (1 hour)
+                                if (dataPointIndex % 144 === 0) { // Show label every 12 data points (1 hour)
                                     return value;
                                 } else {
                                     return '';
