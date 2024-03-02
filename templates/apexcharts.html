@@ -23,7 +23,7 @@
         var limit = params.get('limit');
 
         if (limit === null) {
-            limit = 2016; // Last 24hrs
+            limit = 288; // Last 24hrs
         }
 
         function fetchDataAndRenderChart() {
@@ -82,7 +82,7 @@
                             gradient: {
                                 shadeIntensity: 1,
                                 type: 'vertical',
-                                gradientToColors: ['orange', 'orange', 'light-green', 'yellow', 'orange'],
+                                gradientToColors: ['orange', 'orange', '#a6f1a6', 'yellow', 'orange'],
                                 opacityFrom: 1,
                                 opacityTo: 1,
                                 stops: [0, 100, 100, 100]
