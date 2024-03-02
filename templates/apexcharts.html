@@ -38,7 +38,8 @@
                         stroke: {
                             width: [3, 1, 1, 1, 1],
                             curve: 'smooth',
-                            dashArray: [0, 1, 1, 1, 1]
+                            dashArray: [0, 1, 1, 1, 1],
+                            op
                         },
                         series: [{
                             name: 'Air Temperature',
@@ -71,7 +72,8 @@
                             }]
                         },
                         fill: {
-                            colors: ['blue', 'cyan', 'green'],
+                            colors: ['blue', 'cyan', 'green', 'red', 'red'],
+                            opacity: [1, 0.5, 0.5, 0.5, 0.5],
                             type: "gradient",
                             gradient: {
                                 shadeIntensity: 1,
