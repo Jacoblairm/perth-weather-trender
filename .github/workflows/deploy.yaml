@@ -6,7 +6,8 @@ on:
       - master  # Trigger this workflow on push events to the main branch
 
 jobs:
-  ftp-deploy:
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
@@ -19,12 +20,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        server-dir: path/to/your/directory
+        server-dir: /var/www/html/bom/ # path to directory
 
-    - name: Restart service
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.PASSWORD }}
-        script: ${{ vars.RESTART_SCRIPT }}
