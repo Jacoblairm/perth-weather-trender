@@ -21,17 +21,9 @@ jobs:
         FTP_USERNAME: ${{ secrets.USERNAME }}
         FTP_PASSWORD: ${{ secrets.PASSWORD }}
         REMOTE_DIR: /var/www/html/bom/
-        METHOD: sftp
-        PORT: 22
+        METHOD: ${{ secrets.FTP_METHOD }}
+        PORT: ${{ secrets.FTP_PORT }}
         ARGS: --verbose
-
-      # with:
-      #   server: ${{ secrets.FTP_SERVER }}
-      #   protocol: ftp
-      #   port: 22
-      #   username: ${{ secrets.USERNAME }}
-      #   password: ${{ secrets.PASSWORD }}
-      #   server-dir: /var/www/html/bom/
 
     - name: Restart service
       uses: appleboy/ssh-action@master
