@@ -16,13 +16,23 @@ jobs:
 
     - name: Deploy to FTP
       uses: SamKirkland/FTP-Deploy-Action@2.0.0
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        protocol: ftp
-        port: 22
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        server-dir: /var/www/html/bom/
+      env:
+        FTP_SERVER: ${{ secrets.FTP_SERVER }}
+        FTP_USERNAME: ${{ secrets.USERNAME }}
+        FTP_PASSWORD: ${{ secrets.PASSWORD }}
+        LOCAL_DIR: app/src/app/
+        REMOTE_DIR: /var/www/html/bom/
+        METHOD: sftp
+        PORT: 22
+        ARGS: --verbose
+
+      # with:
+      #   server: ${{ secrets.FTP_SERVER }}
+      #   protocol: ftp
+      #   port: 22
+      #   username: ${{ secrets.USERNAME }}
+      #   password: ${{ secrets.PASSWORD }}
+      #   server-dir: /var/www/html/bom/
 
     - name: Restart service
       uses: appleboy/ssh-action@master
