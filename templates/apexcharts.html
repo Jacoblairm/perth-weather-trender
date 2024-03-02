@@ -92,16 +92,11 @@
                             range: 28 * 60 * 60 * 1000,
                             max: new Date().getTime() + (20 * 60 * 1000) // 10 minutes into the future
                         },
-                        yaxis: [
-
-                            {
-                                seriesName: 'Relative Humidity',
-                            },
-                            {
-                                seriesName: 'Air Temperature',
+                        yaxis: {
+                            title: {
+                                text: 'Value'
                             }
-
-                        ],
+                        },
                         title: {
                             text: 'Weather Data - Updated: ' + timestamps[0]
                         },
