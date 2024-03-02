@@ -14,11 +14,27 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@latest
+      env:
+        DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: ''
+        src: 'public/'
+        dest: 'user@server.com:/var/www/server.com'
+
+- name: Display status from deploy
+  run: echo "${{ steps.deploy.outputs.status }}"
+
     - name: Deploy to FTP
       uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
         server: ${{ secrets.FTP_SERVER }}
-        protocol: ftp
+        protocol: ftps
         port: 22
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
