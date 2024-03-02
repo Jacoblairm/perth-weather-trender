@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy files to server
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +20,14 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
-        server-dir: /var/www/html/bom/ # path to directory
+        server-dir: /var/www/html/bom/
 
+    - name: Restart service
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        protocol: ${{ secrets.SSH_PROTOCOL }}
+        port: ${{ secrets.SSH_PORT }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PASSWORD }}
+        script: ${{ vars.RESTART_SCRIPT }}
