@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
+</head>
+
+<body>
+    <div id="weatherChart"></div>
+    <select id="timeRange" onchange="updateTimeRange()">
+        <option value="144">Select period</option>
+        <option value="12">2 hours</option>
+        <option value="144">Last 24 Hours</option>
+        <option value="1008">Last 1 Week</option>
+        <option value="2016">Last 2 Weeks</option>
+    </select>
+
+    <script>
+        var chart;  // Make the chart a global variable so it can be accessed in updateTimeRange
+        var params = new URLSearchParams(window.location.search);
+        var limit = params.get('limit');
+
+        if (limit === null) {
+            limit = 144; // Last 24hrs
+        }
+
+        // Fetch data from your API or server
+        fetch(`/data?limit=${limit}`)
+            .then(response => response.json())
+            .then(data => {
+                const timestamps = data.map(item => item[1]);
+                const air_temperatures = data.map(item => item[2]);
+                const apparent_temps = data.map(item => item[3]);
+                const rel_humidities = data.map(item => item[4]);
+                const wind_spd_kmhs = data.map(item => item[5]);
+                const gust_kmhs = data.map(item => item[6]);
+
+                const options = {
+                    chart: {
+                        type: 'line',
+                        height: 350
+                    },
+                    series: [{
+                        name: 'Air Temperature',
+                        data: air_temperatures
+                    }, {
+                        name: 'Apparent Temperature',
+                        data: apparent_temps
+                    }, {
+                        name: 'Relative Humidity',
+                        data: rel_humidities
+                    }, {
+                        name: 'Wind Speed',
+                        data: wind_spd_kmhs
+                    }, {
+                        name: 'Gust Speed',
+                        data: gust_kmhs
+                    }],
+                    xaxis: {
+                        type: 'datetime',
+                        labels: {
+                            format: 'dd MMM yyyy'
+                        }
+                    },
+                    yaxis: {
+                        title: {
+                            text: 'Value'
+                        }
+                    },
+                    title: {
+                        text: 'Weather Data'
+                    }
+                };
+
+                chart = new ApexCharts(document.querySelector("#weatherChart"), options);
+                chart.render();
+            });
+
+        function updateTimeRange() {
+            var timeRange = document.getElementById("timeRange").value;
+            // Update the chart based on the selected time range
+            // ...
+        }
+    </script>
+</body>
+
+</html>

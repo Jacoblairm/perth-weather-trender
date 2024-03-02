@@ -3,13 +3,13 @@
 
 <head>
     <title>Weather Data</title>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.30.1/moment.min.js"></script>
 </head>
 
 <body>
-    <div id="weatherChart"></div>
+    <canvas id="weatherChart"></canvas>
     <select id="timeRange" onchange="updateTimeRange()">
         <option value="144">Select period</option>
         <option value="12">2 hours</option>
@@ -17,7 +17,7 @@
         <option value="1008">Last 1 Week</option>
         <option value="2016">Last 2 Weeks</option>
     </select>
-
+    Hi
     <script>
         var chart;  // Make the chart a global variable so it can be accessed in updateTimeRange
         var params = new URLSearchParams(window.location.search);
@@ -38,51 +38,74 @@
                 const wind_spd_kmhs = data.map(item => item[5]);
                 const gust_kmhs = data.map(item => item[6]);
 
-                const options = {
-                    chart: {
-                        type: 'line',
-                        height: 350
+                const ctx = document.getElementById('weatherChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: timestamps,
+                        datasets: [{
+                            label: 'Air Temperature',
+                            data: air_temperatures,
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            fill: false
+                        }, {
+                            label: 'Apparent Temperature',
+                            data: apparent_temps,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            fill: false
+                        }, {
+                            label: 'Relative Humidity',
+                            data: rel_humidities,
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            fill: false
+                        }, {
+                            label: 'Wind Speed',
+                            data: wind_spd_kmhs,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            fill: false
+                        }, {
+                            label: 'Gust Speed',
+                            data: gust_kmhs,
+                            borderColor: 'rgba(255, 205, 86, 1)',
+                            fill: false
+                        }]
                     },
-                    series: [{
-                        name: 'Air Temperature',
-                        data: air_temperatures
-                    }, {
-                        name: 'Apparent Temperature',
-                        data: apparent_temps
-                    }, {
-                        name: 'Relative Humidity',
-                        data: rel_humidities
-                    }, {
-                        name: 'Wind Speed',
-                        data: wind_spd_kmhs
-                    }, {
-                        name: 'Gust Speed',
-                        data: gust_kmhs
-                    }],
-                    xaxis: {
-                        type: 'datetime',
-                        labels: {
-                            format: 'dd MMM yyyy'
-                        }
-                    },
-                    yaxis: {
+                    options: {
+                        responsive: true,
                         title: {
-                            text: 'Value'
+                            display: true,
+                            text: 'Weather Data'
+                        },
+                        scales: {
+                            x: {
+                                type: 'time',
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Time'
+                                },
+                                time: {
+                                    unit: 'minute',
+                                    stepSize: 10,
+                                    min: new Date(new Date().getTime() - 24 * 60 * 60 * 1000),  // 24 hours ago
+                                },
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Value'
+                                }
+                            }
                         }
-                    },
-                    title: {
-                        text: 'Weather Data'
                     }
-                };
-
-                chart = new ApexCharts(document.querySelector("#weatherChart"), options);
-                chart.render();
+                });
             });
 
+        // Update the time range
         function updateTimeRange() {
-            var timeRange = document.getElementById("timeRange").value;
-            // Update the chart based on the selected time range
-            // ...
+            const timeRange = document.getElementById('timeRange').value;
+            window.location.href = window.location.pathname + '?limit=' + timeRange;
         }
     </script>
 </body>

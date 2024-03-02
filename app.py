@@ -50,11 +50,11 @@ scheduler.start()
 
 @app.route('/apexcharts')
 def home():
-    return render_template('index.html')
+    return render_template('apexcharts.html')
 
 @app.route('/')
 def chart():
-    return render_template('chartjs.html')
+    return render_template('index.html')
 
 @app.route('/data', methods=['GET'])
 def data():
