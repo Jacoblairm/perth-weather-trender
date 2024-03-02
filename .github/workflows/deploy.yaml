@@ -27,4 +27,4 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.PASSWORD }}
-        script: ${{ variables.RESTART_SCRIPT }}
+        script: ${{ vars.RESTART_SCRIPT }}
