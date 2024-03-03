@@ -91,7 +91,9 @@
                             type: 'datetime',
                             categories: timestamps,
                             labels: {
-                                format: 'dd/MM HH:mm'
+                                format: 'dd/MM HH:mm',
+                                datetimeUTC: false
+
                             },
                             range: 28 * 60 * 60 * 1000,
                             max: new Date().getTime() + (20 * 60 * 1000) // 10 minutes into the future
