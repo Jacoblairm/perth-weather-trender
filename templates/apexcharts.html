@@ -28,8 +28,19 @@
                     const air_temperatures = data.map(item => [item[1], item[2]]);
                     const apparent_temps = data.map(item => [item[1], item[3]]);
                     const rel_humidities = data.map(item => [item[1], item[4]]);
-                    const wind_spd_kmhs = data.map(item => [item[1], item[5]]);
-                    const gust_kmhs = data.map(item => [item[1], item[6]]);
+                    const wind_spd_kmhs = [];
+                    const gust_kmhs = [];
+
+                    for (let i = 0; i < data.length; i += 6) {
+                        const hourData = data.slice(i, i + 6);
+                        const timestamp = hourData[0][1];
+                        const windSpeedSum = hourData.reduce((sum, item) => sum + item[5], 0);
+                        const gustSpeedSum = hourData.reduce((sum, item) => sum + item[6], 0);
+                        const windSpeedAvg = windSpeedSum / hourData.length;
+                        const gustSpeedAvg = gustSpeedSum / hourData.length;
+                        wind_spd_kmhs.push([timestamp, windSpeedAvg]);
+                        gust_kmhs.push([timestamp, gustSpeedAvg]);
+                    }
                     const options = {
                         chart: {
                             type: 'line',
