@@ -105,9 +105,9 @@
                                 format: 'dd/MM HH:mm'
                             }
                         },
-                        offsetX: 5,
                         dataLabels: {
                             enabled: true,
+                            offsetX: 5,
                             formatter: function (value, { seriesIndex, dataPointIndex, w }) {
                                 if (dataPointIndex % 144 === 0 && seriesIndex < 2) { // Show label every 12 data points (1 hour)
                                     return value;
