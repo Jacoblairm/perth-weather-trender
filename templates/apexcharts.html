@@ -38,8 +38,8 @@
                         const gustSpeedSum = hourData.reduce((sum, item) => sum + item[6], 0);
                         const windSpeedAvg = windSpeedSum / hourData.length;
                         const gustSpeedAvg = gustSpeedSum / hourData.length;
-                        wind_spd_kmhs.push([timestamp, windSpeedAvg]);
-                        gust_kmhs.push([timestamp, gustSpeedAvg]);
+                        wind_spd_kmhs.push([timestamp, Math.round(windSpeedAvg)]);
+                        gust_kmhs.push([timestamp, Math.round(gustSpeedAvg)]);
                     }
                     console.log(wind_spd_kmhs)
                     const options = {
