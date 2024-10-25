@@ -21,7 +21,7 @@
 
         function fetchDataAndRenderChart() {
             // Fetch data from your API or server
-            fetch(`/data?limit=${limit}`)
+            fetch(`data?limit=${limit}`)
                 .then(response => response.json())
                 .then(data => {
                     const timestamps = data.map(item => item[1]);
