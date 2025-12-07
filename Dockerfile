@@ -22,7 +22,7 @@ RUN pip install --no-cache-dir \
     APScheduler==3.10.4
 
 # Initialize database on startup
-RUN python create_db.py
+#RUN python create_db.py
 
 # Expose port
 EXPOSE 5000
