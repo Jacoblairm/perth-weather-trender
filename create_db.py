@@ -8,9 +8,9 @@ c.execute('''
         timestamp TEXT,
         air_temperature REAL,
         apparent_temperature REAL,
-        rel_humidity REAL,
-        wind_spd_kmh REAL,
-        maximum_gust_kmh REAL
+        relative_humidity REAL,
+        wind_speed REAL,
+        maximum_gust REAL
     )
 ''')
 conn.commit()
