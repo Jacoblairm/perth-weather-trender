@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY app.py create_db.py ./
 COPY templates/ ./templates/
 
+# Download the database file
+RUN curl -o temps.db https://blairm.net/bom/temps.db
+
 # Install Python dependencies
 RUN pip install --no-cache-dir \
     Flask==2.3.0 \
