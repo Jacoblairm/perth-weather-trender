@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+README.md
+flask.service
+.dockerignore
+Dockerfile
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.venv
+venv/

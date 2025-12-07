@@ -1,0 +1,12 @@
+[Unit]
+Description=My Flask Application
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/var/www/html/bom
+ExecStart=flask run --host=0.0.0.0
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
