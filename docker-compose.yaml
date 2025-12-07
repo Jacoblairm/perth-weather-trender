@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  perth-weather:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: perth-weather-trender
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    volumes:
+      - weather_data:/app/data
+    environment:
+      - FLASK_ENV=production
+
+volumes:
+  weather_data:
